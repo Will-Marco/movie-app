@@ -10,11 +10,11 @@ export default function TrendingMovie({ trending }) {
       <Carousel
         data={trending}
         renderItem={({ item }) => <MovieCard item={item} />}
-        firstItem={0}
         inactiveSlideOpacity={0.4}
         sliderWidth={width}
         itemWidth={width * 0.7}
         slideStyle={{ display: "flex", alignItems: "center" }}
+        loop={true}
       />
     </View>
   );
