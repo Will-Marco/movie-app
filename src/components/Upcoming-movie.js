@@ -1,9 +1,32 @@
-import { Text, View } from "react-native";
+import { Dimensions, Image, ScrollView, Text, View } from "react-native";
+import { fetchingImage185 } from "../api";
 
-export default function UpcomingMovie() {
+const { width, height } = Dimensions.get("window");
+
+export default function UpcomingMovie({ upcoming, title }) {
   return (
-    <View>
-    <Text className="text-white" >Upcoming-movie</Text>
+    <View className="mx-3 mb-8 space-y-4">
+      <Text className="text-xl text-[#FFFFF0] font-semibold">{title}</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+      >
+        {upcoming.map((item) => (
+          <View className="space-y-1 mr-4 items-center">
+            <Image
+              source={{ uri: fetchingImage185(item.poster_path) }}
+              className="rounded-2xl"
+              style={{ width: width * 0.3, height: height * 0.2 }}
+            />
+            <Text className="text-[#FFFFF0] ">
+              {item.title.length > 13
+                ? item.title.slice(0, 12) + "..."
+                : item.title}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }

@@ -4,6 +4,7 @@ import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
+  fetchingPopularMovie,
   fetchingTopRatedMovie,
   fetchingTrendingMovie,
   fetchingUpcomingMovie,
@@ -14,26 +15,33 @@ export default function Home({ navigation }) {
   const [trending, setTrending] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [topRated, setTopRated] = useState([]);
+  const [popular, setPopular] = useState([]);
 
   const getTrendingData = async () => {
-    const data = await fetchingTrendingMovie();
-    setTrending(data.results);
+    const { results } = await fetchingTrendingMovie();
+    setTrending(results);
   };
 
   const getUpcomingData = async () => {
-    const data = await fetchingUpcomingMovie();
-    setUpcoming(data.results);
+    const { results } = await fetchingUpcomingMovie();
+    setUpcoming(results);
   };
 
   const getTopRatedData = async () => {
-    const data = await fetchingTopRatedMovie();
-    setTopRated(data.results);
+    const { results } = await fetchingTopRatedMovie();
+    setTopRated(results);
+  };
+
+  const getPopularData = async () => {
+    const { results } = await fetchingPopularMovie();
+    setPopular(results);
   };
 
   useEffect(() => {
     getTrendingData();
     getUpcomingData();
     getTopRatedData();
+    getPopularData();
   }, []);
 
   return (
@@ -53,8 +61,13 @@ export default function Home({ navigation }) {
         contentContainerStyle={{ paddingBottom: 20 }}
       >
         {trending.length > 0 && <TrendingMovie trending={trending} />}
-        {upcoming.length > 0 && <UpcomingMovie />}
-        {topRated.length > 0 && <TopRatedMovie />}
+        {upcoming.length > 0 && (
+          <UpcomingMovie upcoming={upcoming} title={"Upcoming movies"} />
+        )}
+        {popular.length > 0 && (
+          <UpcomingMovie upcoming={popular} title={"Popular movies"} />
+        )}
+        {topRated.length > 0 && <TrendingMovie trending={topRated} />}
       </ScrollView>
     </View>
   );
