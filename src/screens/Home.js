@@ -9,17 +9,24 @@ import {
   fetchingTrendingMovie,
   fetchingUpcomingMovie,
 } from "../api";
-import { TrendingMovie, UpcomingMovie, TopRatedMovie } from "../components";
+import {
+  TrendingMovie,
+  UpcomingMovie,
+  TopRatedMovie,
+  Loader,
+} from "../components";
 
 export default function Home({ navigation }) {
   const [trending, setTrending] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [topRated, setTopRated] = useState([]);
   const [popular, setPopular] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getTrendingData = async () => {
     const { results } = await fetchingTrendingMovie();
     setTrending(results);
+    setIsLoading(false);
   };
 
   const getUpcomingData = async () => {
@@ -56,19 +63,25 @@ export default function Home({ navigation }) {
           <Ionicons name="search" color="#FFFFF0" size={25} />
         </View>
       </SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}
-      >
-        {trending.length > 0 && <TrendingMovie trending={trending} />}
-        {upcoming.length > 0 && (
-          <UpcomingMovie upcoming={upcoming} title={"Upcoming movies"} />
-        )}
-        {popular.length > 0 && (
-          <UpcomingMovie upcoming={popular} title={"Popular movies"} />
-        )}
-        {topRated.length > 0 && <TrendingMovie trending={topRated} />}
-      </ScrollView>
+      {isLoading ? (
+        <View className="flex-1 justify-center items-center">
+          <Loader />
+        </View>
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        >
+          {trending.length > 0 && <TrendingMovie trending={trending} />}
+          {upcoming.length > 0 && (
+            <UpcomingMovie upcoming={upcoming} title={"Upcoming movies"} />
+          )}
+          {popular.length > 0 && (
+            <UpcomingMovie upcoming={popular} title={"Popular movies"} />
+          )}
+          {topRated.length > 0 && <TrendingMovie trending={topRated} />}
+        </ScrollView>
+      )}
     </View>
   );
 }
