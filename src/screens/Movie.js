@@ -16,7 +16,7 @@ import {
   fetchingMovieDetail,
   fetchingSimilarMovie,
 } from "../api";
-import { Loader } from "../components";
+import { Cast, Loader, UpcomingMovie } from "../components";
 import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
@@ -51,7 +51,7 @@ export default function Movie() {
     getMovieDetail();
     getMovieCredits();
     getSimilarMovie();
-  }, []);
+  }, [id]);
 
   return (
     <ScrollView
@@ -94,7 +94,7 @@ export default function Movie() {
           </View>
         )}
       </View>
-      <View className={"space-y-4"} style={{ marginTop: -40 }}>
+      <View className="mb-4 space-y-4" style={{ marginTop: -40 }}>
         <View className="mb-4">
           <Text
             className={
@@ -133,6 +133,10 @@ export default function Movie() {
           {movie?.overview}
         </Text>
       </View>
+      {movie?.id && similarMovies.length > 0 && <Cast cast={cast} />}
+      {movie?.id && similarMovies.length > 0 && (
+        <UpcomingMovie upcoming={similarMovies} title={"Similar movies"} />
+      )}
     </ScrollView>
   );
 }
