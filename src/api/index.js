@@ -17,6 +17,8 @@ const personalDetails = (id) => `${base_url}/person/${id}?api_key=${API_KEY}`;
 const personalMovies = (id) =>
   `${base_url}/person/${id}/movie_credits?api_key=${API_KEY}`;
 
+const searchMovies = () => `${base_url}/search/movie?api_key=${API_KEY}`;
+
 export const fetchingTrendingMovie = () => {
   return apiRequest(trendingMovie);
 };
@@ -47,10 +49,14 @@ export const fetchingSimilarMovie = (id) => {
 
 export const fetchingPersonalDetails = (id) => {
   return apiRequest(personalDetails(id));
-}
+};
 
 export const fetchingPersonalMovies = (id) => {
   return apiRequest(personalMovies(id));
+};
+
+export const fetchingSearchMovies = params => {
+  return apiRequest(searchMovies, params);
 }
 
 export const fetchingImage500 = (posterPath) => {

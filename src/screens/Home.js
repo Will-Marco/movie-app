@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   fetchingPopularMovie,
@@ -9,19 +10,16 @@ import {
   fetchingTrendingMovie,
   fetchingUpcomingMovie,
 } from "../api";
-import {
-  TrendingMovie,
-  UpcomingMovie,
-  TopRatedMovie,
-  Loader,
-} from "../components";
+import { TrendingMovie, UpcomingMovie, Loader } from "../components";
 
-export default function Home({ navigation }) {
+export default function Home() {
   const [trending, setTrending] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [topRated, setTopRated] = useState([]);
   const [popular, setPopular] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigation = useNavigation();
 
   const getTrendingData = async () => {
     const { results } = await fetchingTrendingMovie();
@@ -60,7 +58,9 @@ export default function Home({ navigation }) {
             <Ionicons name="videocam" size={50} color="#FFFFF0" />
             <Text className="text-[35px] text-[#FFFFF0]">Movie</Text>
           </View>
-          <Ionicons name="search" color="#FFFFF0" size={25} />
+          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+            <Ionicons name="search" color="#FFFFF0" size={25} />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
       {isLoading ? (
