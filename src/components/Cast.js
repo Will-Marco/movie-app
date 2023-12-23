@@ -1,7 +1,10 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { fetchingImage185 } from "../api";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Cast({ cast }) {
+  const navigation = useNavigation()
+
   return (
     <View className="my-6">
       <Text className="mx-4 mt-6 mb-5 text-xl text-[#FFFFF0]">Actors</Text>
@@ -12,14 +15,14 @@ export default function Cast({ cast }) {
       >
         {cast &&
           cast.map((person, idx) => (
-            <TouchableOpacity key={idx} className={"mr-4 mb-6 items-center"}>
-              <View>
+            <TouchableOpacity key={idx} onPress={() => navigation.navigate('Person', person.id)} className={"mr-4 items-center"}>
+              <View className="w-20 h-20 overflow-hidden rounded-full items-center border border-neutral-500">
                 <Image
                   source={{ uri: fetchingImage185(person?.profile_path) }}
-                  className="w-24 h-28 rounded-2xl"
+                  className="rounded-2xl w-20 h-24"
                 />
               </View>
-              <Text className="text-white text-xs mt-1">
+              <Text className="mt-1 text-xs text-white">
                 {person?.character.length > 13
                   ? person.character.slice(0, 13) + "..."
                   : person?.character}

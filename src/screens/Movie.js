@@ -58,8 +58,8 @@ export default function Movie() {
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-slate-900"
     >
-      <View className="w-full  ">
-        <SafeAreaView className="w-full px-4 py-2 flex-row justify-between items-center border-b-2 border-b-[#FFFFF0] z-20 ">
+      <View className="w-full">
+        <SafeAreaView className="w-full px-4 py-2 top-0 flex-row justify-between items-center absolute z-20 ">
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="chevron-back" size={30} color="#FFFFF0" />
           </TouchableOpacity>
@@ -73,7 +73,12 @@ export default function Movie() {
           </TouchableOpacity>
         </SafeAreaView>
         {isLoading ? (
-          <Loader />
+          <View
+            className="flex-1 justify-center items-center"
+            style={{ width: width, height: height }}
+          >
+            <Loader />
+          </View>
         ) : (
           <View>
             <Image
