@@ -16,8 +16,7 @@ const similarMovies = (id) =>
 const personalDetails = (id) => `${base_url}/person/${id}?api_key=${API_KEY}`;
 const personalMovies = (id) =>
   `${base_url}/person/${id}/movie_credits?api_key=${API_KEY}`;
-
-const searchMovies = () => `${base_url}/search/movie?api_key=${API_KEY}`;
+const searchMovies = `${base_url}/search/movie?api_key=${API_KEY}`;
 
 export const fetchingTrendingMovie = () => {
   return apiRequest(trendingMovie);
