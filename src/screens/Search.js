@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dimensions,
   Image,
@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 import { fetchingImage185, fetchingSearchMovies } from "../api";
 import { Loader } from "../components";
 
@@ -88,7 +88,10 @@ export default function Search() {
           </Text>
           <View className={"flex-row justify-between flex-wrap"}>
             {results?.map((item) => (
-              <TouchableWithoutFeedback key={item.id}>
+              <TouchableWithoutFeedback
+                key={item.id}
+                onPress={() => navigation.navigate("Movie", item.id)}
+              >
                 <View className={"space-y-2 mb-4"}>
                   <Image
                     source={{ uri: fetchingImage185(item.poster_path) }}
@@ -98,7 +101,7 @@ export default function Search() {
                       height: height * 0.3,
                     }}
                   />
-                  <Text className="text-gray-300 ml-1">
+                  <Text className="text-[#FFFFF0] ml-1">
                     {item.title.length > 22
                       ? item.title.slice(0, 22) + "..."
                       : item.title}
