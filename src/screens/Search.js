@@ -44,6 +44,7 @@ export default function Search() {
     }
   };
 
+
   // const textDebounceHandler = useCallback(debounce(searchHandler, 400), []);
 
   const { width, height } = Dimensions.get("window");
@@ -59,17 +60,18 @@ export default function Search() {
         </TouchableOpacity>
         <View className="ml-8 flex-row justify-between items-center bg-slate-900 border border-neutral-400 rounded-full">
           <TextInput
-            onChangeText={(e) => setQuery(e)}
             placeholder="Search movie"
             placeholderTextColor={"lightgray"}
             className="pb-1 pl-4 flex-1 text-base font-semibold text-[#FFFFF0]"
             value={query}
+            onChangeText={(e) => setQuery(e)}
+            onSubmitEditing={searchHandler}
           />
           <TouchableOpacity
-            onPress={searchHandler}
+            onPress={() => setQuery('')}
             className="p-2 m-1 bg-neutral-500 rounded-full"
           >
-            <Ionicons name="search" color="#FFFFF0" size={20} />
+            <Ionicons name="close" color="#FFFFF0" size={20} />
           </TouchableOpacity>
         </View>
       </View>
