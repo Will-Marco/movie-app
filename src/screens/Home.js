@@ -24,7 +24,6 @@ export default function Home() {
   const getTrendingData = async () => {
     const { results } = await fetchingTrendingMovie();
     setTrending(results);
-    setIsLoading(false);
   };
 
   const getUpcomingData = async () => {
@@ -42,11 +41,19 @@ export default function Home() {
     setPopular(results);
   };
 
+  console.log(upcoming);
+
   useEffect(() => {
-    getTrendingData();
-    getUpcomingData();
-    getTopRatedData();
-    getPopularData();
+    try {
+      getTrendingData();
+      getUpcomingData();
+      getTopRatedData();
+      getPopularData();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   return (
@@ -73,8 +80,8 @@ export default function Home() {
           contentContainerStyle={{ paddingBottom: 20 }}
         >
           {trending.length > 0 && <TrendingMovie trending={trending} />}
-          {upcoming.length > 0 && (
-            <UpcomingMovie upcoming={upcoming} title={"Upcoming movies"} />
+           {upcoming.length > 0 && (
+             <UpcomingMovie upcoming={upcoming} title={"Upcoming movies"} />
           )}
           {popular.length > 0 && (
             <UpcomingMovie upcoming={popular} title={"Popular movies"} />

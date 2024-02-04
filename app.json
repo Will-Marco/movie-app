@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "movie-app",
-    "slug": "movie-app",
+    "slug": "movie",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4e8aa518-f134-40f8-b559-cefbe0c07217"
+      }
+    },
+    "owner": "will-marco"
   }
 }

@@ -54,9 +54,9 @@ export const fetchingPersonalMovies = (id) => {
   return apiRequest(personalMovies(id));
 };
 
-export const fetchingSearchMovies = params => {
+export const fetchingSearchMovies = (params) => {
   return apiRequest(searchMovies, params);
-}
+};
 
 export const fetchingImage500 = (posterPath) => {
   return posterPath ? "https://image.tmdb.org/t/p/w500" + posterPath : null;
